@@ -5,6 +5,17 @@ public class PlayerController : MonoBehaviour
 {
     Vector2 moveInput = Vector2.zero;
 
+    [SerializeField] private GameObject[] fruits;
+
+    private void Start()
+    {
+        fruits = Resources.LoadAll<GameObject>("Prefabs/Fruits");
+        foreach (GameObject fruit in fruits)
+        {
+            Debug.Log("Loaded fruit: " + fruit.name);
+        }
+    }
+
     private void FixedUpdate()
     {
         ApplyMove();
