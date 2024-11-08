@@ -7,18 +7,29 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject[] fruits;
 
+    private static int _fruitsCount;
+
     private void Start()
     {
         fruits = Resources.LoadAll<GameObject>("Prefabs/Fruits");
+
         foreach (GameObject fruit in fruits)
         {
             Debug.Log("Loaded fruit: " + fruit.name);
         }
+
+        _fruitsCount = fruits.Length;
     }
 
     private void FixedUpdate()
     {
         ApplyMove();
+    }
+
+    public void SetFruit()
+    {
+        int fruitIndex = Random.Range(0, _fruitsCount);
+
     }
 
     public void OnMove(InputValue value)
@@ -28,7 +39,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnDrop()
     {
-
+        GameObject fruit = fruits[Random.Range(0, _fruitsCount)];
+        Vector3 spawnPosition = this.transform.position;
+        Instantiate(fruit, spawnPosition, Quaternion.identity);
     }
 
     private void ApplyMove()
